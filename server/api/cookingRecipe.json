@@ -1,0 +1,41 @@
+{
+    "title": "The best taco in your life",
+    "steps": [
+      {
+        "id": 1,
+        "description": "Нам понадобится сковорода штука одна, масло, вода",
+        "duration": 30,
+        "type": "manual",
+        "next": [2, 3]
+      },
+      {
+        "id": 2,
+        "description": "Достать фарш из морозилки и начать размораживать.",
+        "duration": 40,
+        "type": "manual",
+        "next": [4]
+      },
+      {
+        "id": 3,
+        "description": "Нарезать овощи, добавить к фаршу",
+        "duration": 40,
+        "type": "manual",
+        "next": [5]
+      },
+      {
+        "id": 4,
+        "description": "Смазать сковородку маслом и положить фарш жариться на медленный-средний огонь.",
+        "duration": 360,
+        "type": "automatic",
+        "next": [5]
+      },
+      {
+        "id": 5,
+        "description": "Добавить получившуюся смесь в лаваш",
+        "duration": null,
+        "type": "manual",
+        "next": []
+      }
+    ]
+  }
+  

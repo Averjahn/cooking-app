@@ -1,0 +1,56 @@
+/* body {
+    background: url('/images/notebook-cover.jpg') no-repeat center center;
+    background-size: cover;
+  } */
+  .notebook-page {
+    background: url('/images/notebook-lines.png') repeat-y;
+    background-size: contain;
+  }
+  
+
+body {
+    font-family: 'Playfair Display', serif; /* Или Great Vibes */
+    background: linear-gradient(to bottom, #d4c5a9 80%, #88765a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .notebook-wrapper {
+    display: flex;
+    background: #f7f5e6;
+    border: 15px solid #8c6c42; /* Обложка */
+    padding: 20px;
+    min-width: 60vw;
+    min-height: 50vh;
+    width: 80%;
+    height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+  
+  .notebook-page {
+    background: repeating-linear-gradient(
+      #f7f5e6,
+      #f7f5e6 40px,
+      #e0dfc1 41px
+    );
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1, h3 {
+    font-family: 'Playfair Display', serif; /* Рукописный стиль */
+    color: #3b3024;
+    line-height: 1.5;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
