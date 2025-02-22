@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     preset: 'static'
   },
   app: {
-    baseURL: '/<REPO_NAME>/', // Укажи название репозитория
+    baseURL: '/cooking-app/', // Укажи название репозитория
   },
   modules: ['@element-plus/nuxt'],
   
