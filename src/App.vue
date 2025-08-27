@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { provide } from 'vue'
 import HomeView from './views/HomeView.vue'
+import ErudaDebugger from './components/ErudaDebugger.vue'
 import { useTelegramUser } from './composables/useTelegramUser'
 
 // Инициализируем Telegram WebApp
@@ -13,6 +14,7 @@ provide('telegramUser', telegramUser)
 <template>
   <div id="app">
     <HomeView />
+    <ErudaDebugger />
   </div>
 </template>
 
