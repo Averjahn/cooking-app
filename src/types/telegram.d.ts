@@ -3,6 +3,9 @@ declare global {
     Telegram?: {
       WebApp: TelegramWebApp
     }
+    TelegramGameProxy?: {
+      receiveEvent: (event: any) => void
+    }
   }
 }
 
@@ -12,12 +15,15 @@ export interface TelegramUser {
   last_name?: string
   username?: string
   language_code?: string
+  photo_url?: string
 }
 
 export interface TelegramWebApp {
   ready: () => void
   expand: () => void
   close: () => void
+  requestFullscreen: () => void
+  exitFullscreen: () => void
   MainButton: {
     text: string
     color: string

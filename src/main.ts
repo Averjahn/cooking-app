@@ -1,26 +1,63 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import './style.css'
 
-// Инициализируем Telegram WebApp если доступен
-if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-  // Вызываем WebApp.ready() для инициализации
-  window.Telegram.WebApp.ready()
-  
-  // Устанавливаем тему приложения
-  const webApp = window.Telegram.WebApp
-  if (webApp.themeParams.bg_color) {
-    document.documentElement.style.setProperty(
-      '--tg-theme-bg-color', 
-      webApp.themeParams.bg_color
-    )
+// Подключение Telegram WebApp SDK
+if (typeof window !== 'undefined') {
+  // Ждем загрузки SDK
+  const checkTelegramSDK = () => {
+    if (window.Telegram?.WebApp) {
+      console.log('Telegram WebApp SDK загружен')
+    } else {
+      setTimeout(checkTelegramSDK, 100)
+    }
   }
-  if (webApp.themeParams.text_color) {
-    document.documentElement.style.setProperty(
-      '--tg-theme-text-color', 
-      webApp.themeParams.text_color
-    )
+  checkTelegramSDK()
+}
+
+// Инициализация Telegram WebApp
+async function initTelegramWebApp() {
+  try {
+    // Ждем загрузки SDK
+    while (!window.Telegram?.WebApp) {
+      await new Promise(resolve => setTimeout(resolve, 100))
+    }
+
+    const webApp = window.Telegram.WebApp
+    
+    // Готовим приложение
+    webApp.ready()
+    
+    // Автоматическое открытие в полноэкранном режиме
+    try {
+      if (webApp.requestFullscreen) {
+        webApp.requestFullscreen()
+      } else {
+        webApp.expand()
+      }
+    } catch (error) {
+      console.log('Не удалось открыть в полноэкранном режиме:', error)
+      // Fallback на expand
+      try {
+        webApp.expand()
+      } catch (expandError) {
+        console.log('Не удалось развернуть приложение:', expandError)
+      }
+    }
+    
+  } catch (error) {
+    console.log('Ошибка инициализации Telegram WebApp:', error)
   }
 }
 
-createApp(App).mount('#app')
+// Основная инициализация
+const app = createApp(App)
+const pinia = createPinia()
+
+app.use(pinia)
+
+// Инициализируем Telegram WebApp
+initTelegramWebApp()
+
+app.mount('#app')

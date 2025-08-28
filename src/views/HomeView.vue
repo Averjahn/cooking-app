@@ -1,103 +1,234 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { useTelegramUserStore } from '../stores/telegramUser'
 
-// Получаем данные Telegram через inject
-const telegramUser = inject('telegramUser')
-
-// Функция для демонстрации главной кнопки
-const showMainButtonExample = () => {
-  if (telegramUser) {
-    telegramUser.showMainButton('🍳 Начать готовить!', () => {
-      console.log('Главная кнопка нажата!')
-      telegramUser.hapticFeedback('success')
-      // Здесь можно добавить логику для начала готовки
-    })
-  }
-}
+// Используем Pinia store
+const telegramUserStore = useTelegramUserStore()
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 py-12 px-4">
-    <div class="max-w-4xl mx-auto">
-      <!-- Информация о пользователе Telegram -->
-      <div v-if="telegramUser.isReady && telegramUser.user" class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
-        <h3 class="text-lg font-medium text-blue-900 mb-2">👤 Информация о пользователе</h3>
-        <div class="text-sm text-blue-700 space-y-1">
-          <p><strong>ID:</strong> {{ telegramUser.user.id }}</p>
-          <p><strong>Имя:</strong> {{ telegramUser.user.first_name }}</p>
-          <p v-if="telegramUser.user.last_name"><strong>Фамилия:</strong> {{ telegramUser.user.last_name }}</p>
-          <p v-if="telegramUser.user.username"><strong>Username:</strong> @{{ telegramUser.user.username }}</p>
-          <p v-if="telegramUser.user.language_code"><strong>Язык:</strong> {{ telegramUser.user.language_code }}</p>
+  <div class="home-container">
+    <!-- Карточка пользователя -->
+    <div v-if="telegramUserStore.isReady" class="user-card-container">
+      <div class="user-card">
+        <!-- Аватар пользователя -->
+        <div class="user-avatar">
+          <img 
+            v-if="telegramUserStore.user?.photo_url" 
+            :src="telegramUserStore.user.photo_url" 
+            :alt="telegramUserStore.userName"
+            class="avatar-image"
+          />
+          <div v-else class="avatar-fallback">
+            {{ telegramUserStore.userInitial }}
+          </div>
         </div>
-      </div>
+        
+        <!-- Основная информация -->
+        <div class="user-info">
+          <h2 class="user-name">
+            {{ telegramUserStore.userName }}
+          </h2>
+          
+          <p v-if="telegramUserStore.user?.username" class="user-username">
+            @{{ telegramUserStore.user.username }}
+          </p>
+        </div>
 
-      <!-- Сообщение об ошибке -->
-      <div v-if="telegramUser.error" class="mb-8 p-4 bg-red-50 rounded-lg border border-red-200">
-        <p class="text-red-700">{{ telegramUser.error }}</p>
-      </div>
+        <!-- Детальная информация -->
+        <div class="user-details">
+          <div class="detail-item">
+            <span class="detail-label">🆔 ID</span>
+            <span class="detail-value">{{ telegramUserStore.user?.id || 'N/A' }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <span class="detail-label">🌐 Язык</span>
+            <span class="detail-value">{{ telegramUserStore.user?.language_code?.toUpperCase() || 'RU' }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <span class="detail-label">📱 Режим</span>
+            <span class="detail-value">
+              {{ telegramUserStore.isTestMode ? 'Разработка' : 'Telegram' }}
+            </span>
+          </div>
+        </div>
 
-      <h1 class="text-4xl font-bold text-gray-900 mb-8">🍳 Cooking App</h1>
-      
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Добро пожаловать в приложение для готовки!</h2>
-        <p class="text-gray-600 mb-6">
-          Здесь вы можете найти рецепты, планировать меню и вести дневник кулинарных экспериментов.
-        </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-            <h3 class="text-lg font-medium text-blue-900 mb-2">📖 Рецепты</h3>
-            <p class="text-blue-700 text-sm">Большая коллекция проверенных рецептов</p>
-          </div>
-          
-          <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-            <h3 class="text-lg font-medium text-green-900 mb-2">📅 Планирование</h3>
-            <p class="text-green-700 text-sm">Планируйте меню на неделю</p>
-          </div>
-          
-          <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
-            <h3 class="text-lg font-medium text-purple-900 mb-2">⭐ Избранное</h3>
-            <p class="text-purple-700 text-sm">Сохраняйте любимые рецепты</p>
-          </div>
+        <!-- Статус -->
+        <div class="user-status">
+          <span v-if="telegramUserStore.isTestMode" class="status-badge test">
+            🧪 Тестовый режим
+          </span>
+          <span class="status-badge ready">
+            ✅ Готов к работе
+          </span>
         </div>
-        
-        <!-- Кнопки управления Telegram WebApp -->
-        <div v-if="telegramUser.isReady" class="mt-8 space-y-4">
-          <div class="flex flex-wrap gap-4 justify-center">
-            <button 
-              @click="telegramUser.expandApp()"
-              class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-6 rounded-lg transition-colors"
-            >
-              📱 Развернуть приложение
-            </button>
-            
-            <button 
-              @click="showMainButtonExample"
-              class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-colors"
-            >
-              🔘 Показать главную кнопку
-            </button>
-            
-            <button 
-              @click="telegramUser.hapticFeedback('medium')"
-              class="bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-6 rounded-lg transition-colors"
-            >
-              📳 Haptic Feedback
-            </button>
-          </div>
-          
-          <button 
-            @click="telegramUser.closeApp()"
-            class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-6 rounded-lg transition-colors"
-          >
-            ❌ Закрыть приложение
-          </button>
-        </div>
-        
-        <button class="mt-8 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition-colors">
-          Начать готовить
-        </button>
       </div>
+    </div>
+
+    <!-- Сообщение об отсутствии данных -->
+    <div v-else-if="!telegramUserStore.isLoading" class="no-data-message">
+      <div class="no-data-icon">⚠️</div>
+      <h3>Данные пользователя не найдены</h3>
+      <p>Проверьте консоль браузера для отладочной информации</p>
     </div>
   </div>
 </template>
+
+<style scoped>
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.user-card-container {
+  padding: 0 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.user-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.user-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.user-avatar {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.avatar-fallback {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid white;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.user-info {
+  margin-bottom: 2rem;
+}
+
+.user-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+}
+
+.user-username {
+  color: #667eea;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.user-details {
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  color: #718096;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.detail-value {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.user-status {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status-badge.ready {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.status-badge.test {
+  background: #fed7d7;
+  color: #742a2a;
+}
+
+.no-data-message {
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+.no-data-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.no-data-message h3 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.no-data-message p {
+  margin: 0;
+  opacity: 0.8;
+}
+</style>
