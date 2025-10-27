@@ -28,7 +28,7 @@ const emit = defineEmits<Emits>()
 const timeLeft = ref(0)
 const isRunning = ref(false)
 const formatTime = () => '0:00'
-const getProgress = (totalSeconds: number) => 0
+const getProgress = (_totalSeconds: number) => 0
 
 /**
  * Обработчик нажатия на кнопку действия
