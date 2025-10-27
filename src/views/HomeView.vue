@@ -34,33 +34,12 @@ const telegramUserStore = useTelegramUserStore()
           </p>
         </div>
 
-        <!-- Детальная информация -->
-        <div class="user-details">
-          <div class="detail-item">
-            <span class="detail-label">🆔 ID</span>
-            <span class="detail-value">{{ telegramUserStore.user?.id || 'N/A' }}</span>
-          </div>
-          
-          <div class="detail-item">
-            <span class="detail-label">🌐 Язык</span>
-            <span class="detail-value">{{ telegramUserStore.user?.language_code?.toUpperCase() || 'RU' }}</span>
-          </div>
-          
-          <div class="detail-item">
-            <span class="detail-label">📱 Режим</span>
-            <span class="detail-value">
-              {{ telegramUserStore.isTestMode ? 'Разработка' : 'Telegram' }}
-            </span>
-          </div>
-        </div>
+
 
         <!-- Статус -->
-        <div class="user-status">
-          <span v-if="telegramUserStore.isTestMode" class="status-badge test">
+        <div v-if="telegramUserStore.isTestMode" class="user-status">
+          <span class="status-badge test">
             🧪 Тестовый режим
-          </span>
-          <span class="status-badge ready">
-            ✅ Готов к работе
           </span>
         </div>
       </div>
@@ -99,16 +78,6 @@ const telegramUserStore = useTelegramUserStore()
   overflow: hidden;
 }
 
-.user-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-}
-
 .user-avatar {
   margin-bottom: 1.5rem;
   display: flex;
@@ -141,7 +110,7 @@ const telegramUserStore = useTelegramUserStore()
 }
 
 .user-info {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .user-name {
@@ -158,33 +127,7 @@ const telegramUserStore = useTelegramUserStore()
   margin: 0;
 }
 
-.user-details {
-  margin-bottom: 2rem;
-}
 
-.detail-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.detail-item:last-child {
-  border-bottom: none;
-}
-
-.detail-label {
-  color: #718096;
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-.detail-value {
-  color: #2d3748;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
 
 .user-status {
   display: flex;
@@ -198,11 +141,6 @@ const telegramUserStore = useTelegramUserStore()
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
-}
-
-.status-badge.ready {
-  background: #c6f6d5;
-  color: #22543d;
 }
 
 .status-badge.test {

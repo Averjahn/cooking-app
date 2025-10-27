@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import HomeView from './views/HomeView.vue'
 import RecipeList from './components/RecipeList.vue'
 import RecipePlayer from './components/RecipePlayer.vue'
@@ -13,6 +13,11 @@ const recipesStore = useRecipesStore()
 
 // Состояние навигации
 const currentView = ref<'profile' | 'recipes'>('profile')
+
+// Проверяем есть ли активный рецепт (любого типа)
+const hasActiveRecipe = computed(() => {
+  return recipesStore.currentRecipe || recipesStore.currentMultiTaskRecipe
+})
 
 // Инициализация при монтировании
 onMounted(() => {
@@ -84,13 +89,8 @@ const initTelegramApp = async () => {
 }
 
 // Переключение между видами
-const switchToProfile = () => {
-  currentView.value = 'profile'
-}
 
-const switchToRecipes = () => {
-  currentView.value = 'recipes'
-}
+
 </script>
 
 <template>
@@ -106,40 +106,49 @@ const switchToRecipes = () => {
     <!-- Основное содержимое -->
     <div v-else class="app-container">
       <!-- Хедер приложения -->
-      <header v-if="!recipesStore.currentRecipe" class="app-header">
+      <header v-if="!hasActiveRecipe" class="app-header">
         <div class="app-icon">👨‍🍳</div>
         <h1 class="app-title">Ваш персональный помощник в мире кулинарии</h1>
       </header>
 
-      <!-- Навигация -->
-      <nav v-if="!recipesStore.currentRecipe" class="app-navigation">
+      <!-- Контент -->
+      <div :class="['content-area', { 'content-area--with-nav': !hasActiveRecipe }]">
+        <HomeView v-if="currentView === 'profile'" />
+        <div v-else>
+          <!-- Если рецепт не выбран - показываем список -->
+          <RecipeList v-if="!hasActiveRecipe" />
+          <!-- Если выбран обычный рецепт - показываем пошаговое воспроизведение -->
+          <RecipePlayer 
+            v-else-if="recipesStore.currentRecipe" 
+            :recipe="recipesStore.currentRecipe" 
+          />
+          <!-- Если выбран мульти-блочный рецепт - пока тоже показываем список (временно) -->
+          <div v-else-if="recipesStore.currentMultiTaskRecipe" class="temp-message">
+            <h2>Мульти-блочный рецепт: {{ recipesStore.currentMultiTaskRecipe.title }}</h2>
+            <p>Компонент в разработке...</p>
+            <button @click="recipesStore.setAnyRecipe(null)" class="back-button">
+              ← Назад к списку
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <nav v-if="!hasActiveRecipe" class="app-navigation">
         <button 
           @click="currentView = 'profile'"
           :class="['app-nav-button', { 'app-nav-button--active': currentView === 'profile' }]"
         >
-          Профиль
+          <span>Профиль</span>
         </button>
+
         <button 
           @click="currentView = 'recipes'"
           :class="['app-nav-button', { 'app-nav-button--active': currentView === 'recipes' }]"
         >
-          Рецепты
+          <span>Рецепты</span>
         </button>
-      </nav>
+        </nav>
 
-      <!-- Контент -->
-      <div class="content-area">
-        <HomeView v-if="currentView === 'profile'" />
-        <div v-else>
-          <!-- Если рецепт не выбран - показываем список -->
-          <RecipeList v-if="!recipesStore.currentRecipe" />
-          <!-- Если рецепт выбран - показываем пошаговое воспроизведение -->
-          <RecipePlayer 
-            v-else 
-            :recipe="recipesStore.currentRecipe" 
-          />
-        </div>
-      </div>
 
       <!-- Компонент отладки -->
       <ErudaDebugger />
@@ -234,52 +243,89 @@ const switchToRecipes = () => {
   font-weight: 300;
 }
 
-/* Навигация */
+/* Нижняя навигация — мобильное меню */
 .app-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
   display: flex;
-  padding: 1rem;
-  gap: 0.5rem;
-  justify-content: center;
-  position: relative;
-  z-index: 100;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 1000;
+  padding: 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Кнопки меню */
 .app-nav-button {
-  padding: 0.75rem 1.5rem;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.15);
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
   color: white;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  min-width: 120px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .app-nav-button:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .app-nav-button--active {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.25);
 }
 
-/* Область контента */
+/* Чтобы контент не скрывался за меню */
 .content-area {
   flex: 1;
   overflow: hidden;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
-  padding: 0 20px;
+  padding-bottom: 60px; /* отступ под меню */
+}
+
+
+/* Временное сообщение */
+.temp-message {
+  text-align: center;
+  padding: 2rem;
+  color: white;
+}
+
+.temp-message h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.temp-message p {
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.back-button {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 </style>

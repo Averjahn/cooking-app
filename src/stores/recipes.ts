@@ -1,15 +1,22 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { recipes } from '../recipes/recipes'
-import type { Recipe } from '../types/recipes'
+import { recipes, raguBolognese } from '../recipes/recipes'
+import type { Recipe, MultiTaskRecipe, AnyRecipe } from '../types/recipes'
 
 export const useRecipesStore = defineStore('recipes', () => {
-  // Состояние
+  // Состояние для старых рецептов
   const allRecipes = ref<Recipe[]>(recipes)
   const currentRecipe = ref<Recipe | null>(null)
   const currentStepIndex = ref(0)
 
-  // Геттеры
+  // Состояние для новых мульти-блочных рецептов
+  const allMultiTaskRecipes = ref<MultiTaskRecipe[]>([raguBolognese])
+  const currentMultiTaskRecipe = ref<MultiTaskRecipe | null>(null)
+  const currentBlockId = ref<string | null>(null)
+  const currentBlockStepIndex = ref(0)
+  const completedBlocks = ref<Set<string>>(new Set())
+
+  // Геттеры для старых рецептов
   const recipesCount = computed(() => allRecipes.value.length)
   const currentStep = computed(() => {
     if (!currentRecipe.value) return null
@@ -20,6 +27,50 @@ export const useRecipesStore = defineStore('recipes', () => {
     return currentStepIndex.value === currentRecipe.value.steps.length - 1
   })
   const isFirstStep = computed(() => currentStepIndex.value === 0)
+
+  // Геттеры для новых мульти-блочных рецептов
+  const currentBlock = computed(() => {
+    if (!currentMultiTaskRecipe.value || !currentBlockId.value) return null
+    return currentMultiTaskRecipe.value.blocks.find(block => block.id === currentBlockId.value)
+  })
+  
+  const currentBlockStep = computed(() => {
+    if (!currentBlock.value) return null
+    return currentBlock.value.steps[currentBlockStepIndex.value]
+  })
+  
+  const isLastBlockStep = computed(() => {
+    if (!currentBlock.value) return true
+    return currentBlockStepIndex.value === currentBlock.value.steps.length - 1
+  })
+  
+  const isFirstBlockStep = computed(() => currentBlockStepIndex.value === 0)
+  
+  const availableBlocks = computed(() => {
+    if (!currentMultiTaskRecipe.value) return []
+    return currentMultiTaskRecipe.value.blocks.filter(block => {
+      // Если блок можно запустить сразу
+      if (block.canStartImmediately) return true
+      
+      // Если нет зависимостей
+      if (!block.canStartWhen || block.canStartWhen.length === 0) return true
+      
+      // Проверяем зависимости
+      if (block.requiresAllBlocks) {
+        // Нужны ВСЕ зависимости
+        return block.canStartWhen.every(blockId => completedBlocks.value.has(blockId))
+      } else {
+        // Достаточно ЛЮБОЙ зависимости
+        return block.canStartWhen.some(blockId => completedBlocks.value.has(blockId))
+      }
+    })
+  })
+
+  // Объединенный список всех рецептов
+  const allRecipesUnified = computed(() => [
+    ...allRecipes.value,
+    ...allMultiTaskRecipes.value
+  ])
 
   // Действия
   const setCurrentRecipe = (recipe: Recipe | null) => {
@@ -49,28 +100,118 @@ export const useRecipesStore = defineStore('recipes', () => {
     currentStepIndex.value = 0
   }
 
-  const getRecipeById = (id: string): Recipe | undefined => {
+  const getRecipeById = (id: number): Recipe | undefined => {
     return allRecipes.value.find(recipe => recipe.id === id)
   }
 
+  // Новые методы для мульти-блочных рецептов
+  const setCurrentMultiTaskRecipe = (recipe: MultiTaskRecipe | null) => {
+    currentMultiTaskRecipe.value = recipe
+    currentBlockId.value = null
+    currentBlockStepIndex.value = 0
+    completedBlocks.value.clear()
+  }
+
+  const setCurrentBlock = (blockId: string) => {
+    currentBlockId.value = blockId
+    currentBlockStepIndex.value = 0
+  }
+
+  const nextBlockStep = () => {
+    if (currentBlock.value && !isLastBlockStep.value) {
+      currentBlockStepIndex.value++
+    }
+  }
+
+  const previousBlockStep = () => {
+    if (!isFirstBlockStep.value) {
+      currentBlockStepIndex.value--
+    }
+  }
+
+  const completeBlock = (blockId: string) => {
+    completedBlocks.value.add(blockId)
+  }
+
+  const resetMultiTaskRecipe = () => {
+    currentBlockId.value = null
+    currentBlockStepIndex.value = 0
+    completedBlocks.value.clear()
+  }
+
+  const getMultiTaskRecipeById = (id: number): MultiTaskRecipe | undefined => {
+    return allMultiTaskRecipes.value.find(recipe => recipe.id === id)
+  }
+
+  // Универсальные методы
+  const setAnyRecipe = (recipe: AnyRecipe | null) => {
+    if (!recipe) {
+      currentRecipe.value = null
+      currentMultiTaskRecipe.value = null
+      return
+    }
+
+    if ('blocks' in recipe) {
+      // Это MultiTaskRecipe
+      setCurrentMultiTaskRecipe(recipe)
+      currentRecipe.value = null
+    } else {
+      // Это обычный Recipe
+      setCurrentRecipe(recipe)
+      currentMultiTaskRecipe.value = null
+    }
+  }
+
+  const getCurrentRecipeType = computed(() => {
+    if (currentMultiTaskRecipe.value) return 'multi-task'
+    if (currentRecipe.value) return 'simple'
+    return null
+  })
+
   return {
-    // Состояние
+    // Состояние для старых рецептов
     allRecipes,
     currentRecipe,
     currentStepIndex,
     
-    // Геттеры
+    // Состояние для новых рецептов
+    allMultiTaskRecipes,
+    currentMultiTaskRecipe,
+    currentBlockId,
+    currentBlockStepIndex,
+    completedBlocks,
+    
+    // Геттеры для старых рецептов
     recipesCount,
     currentStep,
     isLastStep,
     isFirstStep,
     
-    // Действия
+    // Геттеры для новых рецептов
+    currentBlock,
+    currentBlockStep,
+    isLastBlockStep,
+    isFirstBlockStep,
+    availableBlocks,
+    allRecipesUnified,
+    getCurrentRecipeType,
+    
+    // Действия для старых рецептов
     setCurrentRecipe,
     nextStep,
     previousStep,
     goToStep,
     resetRecipe,
-    getRecipeById
+    getRecipeById,
+    
+    // Действия для новых рецептов
+    setCurrentMultiTaskRecipe,
+    setCurrentBlock,
+    nextBlockStep,
+    previousBlockStep,
+    completeBlock,
+    resetMultiTaskRecipe,
+    getMultiTaskRecipeById,
+    setAnyRecipe
   }
 })

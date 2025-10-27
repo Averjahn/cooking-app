@@ -1,30 +1,24 @@
-<script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+<!--
+  Компонент для подключения Eruda (инструменты разработчика для мобильных устройств)
+  Загружается только в режиме разработки или при необходимости отладки
+-->
 
-let eruda: any = null
+<script setup lang="ts">
+import { onMounted } from 'vue'
 
 onMounted(() => {
-  // Инициализируем Eruda для отладки
-  try {
-    import('eruda').then((module) => {
-      eruda = module.default
-      eruda.init()
-      console.log('✅ Eruda отладчик загружен')
-    }).catch((error) => {
-      console.error('❌ Не удалось загрузить Eruda:', error)
-    })
-  } catch (error) {
-    console.log('Eruda недоступен в production')
+  // Загружаем Eruda для отладки на мобильных устройствах
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/eruda'
+  script.onload = () => {
+    if ((window as any).eruda) {
+      (window as any).eruda.init()
+    }
   }
-})
-
-onUnmounted(() => {
-  if (eruda) {
-    eruda.destroy()
-  }
+  document.head.appendChild(script)
 })
 </script>
 
 <template>
-  <div style="display: none;"></div>
-</template> 
+  <div></div>
+</template>
