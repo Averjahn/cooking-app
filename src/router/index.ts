@@ -4,12 +4,12 @@ const routes: RouteRecordRaw[] = [
   { 
     path: '/', 
     name: 'profile', 
-    component: () => import('../views/ProfileView.vue') 
+    component: () => import('../views/HomeView.vue') 
   },
   { 
     path: '/recipes', 
     name: 'recipes', 
-    component: () => import('../views/RecipesView.vue') 
+    component: () => import('../components/RecipeList.vue') 
   },
   { 
     path: '/recipe/:id', 
@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
   { 
     path: '/multitask/:id', 
     name: 'multitask', 
-    component: () => import('../views/MultiTaskView.vue'),
+    component: () => import('../views/RecipeView.vue'),
     props: true
   }
 ]

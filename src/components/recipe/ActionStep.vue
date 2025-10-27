@@ -27,8 +27,8 @@ const emit = defineEmits<Emits>()
 // Простая заглушка для таймера (не используется в ActionStep)
 const timeLeft = ref(0)
 const isRunning = ref(false)
-const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, '0')}`
-const getProgress = () => 0
+const formatTime = () => '0:00'
+const getProgress = (totalSeconds: number) => 0
 
 /**
  * Обработчик нажатия на кнопку действия
@@ -115,7 +115,7 @@ const timerStatus = computed(() => {
         :key="button"
         @click="handleActionClick(button)"
         class="action-button"
-        :disabled="hasActiveTimer"
+        :disabled="!!hasActiveTimer"
       >
         <span v-if="step.timer" class="button-icon">⏱️</span>
         {{ button }}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRecipesStore } from '../stores/recipes'
-import type { Recipe, MultiTaskRecipe, AnyRecipe } from '../types/recipes'
+import type { AnyRecipe } from '../types/recipes'
 
 const recipesStore = useRecipesStore()
 
