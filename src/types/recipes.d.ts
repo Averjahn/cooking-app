@@ -1,7 +1,7 @@
 // Базовые интерфейсы
 export interface RecipeIngredient {
   name: string // Название ингредиента - текст для отображения
-  amount: string // Количество - важно для покупок и подготовки
+  amount?: string // Количество - важно для покупок и подготовки (делаем опциональным для простых карточек)
   icon: string // Иконка ингредиента - визуальная помощь для быстрого поиска
 }
 
@@ -72,12 +72,12 @@ export interface MultiTaskRecipe {
 
 // Старые интерфейсы для обратной совместимости
 export interface RecipeStep {
-  id: number
+  id?: number // делаем опциональным для совместимости с простыми наборами шагов
   type: 'ingredients' | 'step' | 'parallel'
   text: string
-  ingredients: RecipeIngredient[]
-  timer: number | null
-  fire: number | null
+  ingredients?: RecipeIngredient[]
+  timer?: number | null
+  fire?: number | null
   buttons: string[]
   parallelGroup?: number
   autoStartTimer?: boolean
