@@ -210,30 +210,76 @@ onUnmounted(() => {
   max-width: 800px;
   margin: 0 auto;
   padding: 1rem;
+  background: #f5ebe0;
+  min-height: calc(100vh - 70px);
 }
 
 /* Контент шага - Винтажный стиль */
 .step-content {
-  background: #fff;
+  background: #f5ebe0;
   border-radius: 0;
   padding: 1.5rem;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: 6px 6px 0 rgba(61, 40, 23, 0.6);
   margin-bottom: 1rem;
   width: 100%;
   box-sizing: border-box;
-  border: 4px solid #000;
+  border: 4px solid #3d2817;
   font-family: 'Courier New', monospace;
+  position: relative;
+}
+
+/* Текстура для шага */
+.step-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: 
+    radial-gradient(circle, rgba(61, 40, 23, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.step-content > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Завершение рецепта */
 .recipe-complete {
   text-align: center;
-  background: #fff;
+  background: #f5ebe0;
   border-radius: 0;
   padding: 2rem;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
-  border: 4px solid #000;
+  box-shadow: 6px 6px 0 rgba(61, 40, 23, 0.6);
+  border: 4px solid #3d2817;
   font-family: 'Courier New', monospace;
+  position: relative;
+}
+
+/* Текстура для завершения */
+.recipe-complete::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: 
+    radial-gradient(circle, rgba(61, 40, 23, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.recipe-complete > * {
+  position: relative;
+  z-index: 1;
 }
 
 .complete-icon {
@@ -244,23 +290,23 @@ onUnmounted(() => {
 .recipe-complete h3 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #000;
+  color: #3d2817;
   margin: 0 0 0.75rem 0;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
 .recipe-complete p {
-  color: #000;
+  color: #3d2817;
   font-size: 0.9rem;
   margin: 0 0 1.25rem 0;
   font-weight: 600;
 }
 
 .complete-button {
-  background: #000;
-  color: #fff;
-  border: 2px solid #000;
+  background: #3d2817;
+  color: #f5ebe0;
+  border: 2px solid #3d2817;
   padding: 0.8rem 1.5rem;
   border-radius: 0;
   font-size: 0.9rem;

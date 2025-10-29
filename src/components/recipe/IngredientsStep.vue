@@ -86,11 +86,14 @@ const hasIngredients = computed(() => {
 /* Заголовок */
 .step-title {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: #1a202c;
+  font-weight: 700;
+  color: #3d2817;
   margin: 0 0 1.5rem 0;
   line-height: 1.3;
   text-align: center;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Сетка ингредиентов */

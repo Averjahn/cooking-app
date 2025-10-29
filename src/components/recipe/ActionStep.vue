@@ -144,10 +144,13 @@ const timerStatus = computed(() => {
 /* Заголовок */
 .step-title {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: #1a202c;
+  font-weight: 700;
+  color: #3d2817;
   margin: 0 0 1.5rem 0;
   line-height: 1.3;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Информация об огне */
@@ -226,16 +229,18 @@ const timerStatus = computed(() => {
 .timer-progress-bar {
   width: 100%;
   height: 8px;
-  background: #e2e8f0;
-  border-radius: 4px;
+  background: rgba(61, 40, 23, 0.2);
+  border-radius: 0;
   overflow: hidden;
+  border: 2px solid #3d2817;
 }
 
 .timer-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  border-radius: 4px;
+  background: #3d2817;
+  border-radius: 0;
   transition: width 0.3s ease;
+  box-shadow: inset 0 0 4px rgba(245, 235, 224, 0.3);
 }
 
 /* Кнопки действий */

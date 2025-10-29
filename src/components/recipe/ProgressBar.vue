@@ -133,9 +133,12 @@ const isCompleted = computed(() => {
 }
 
 .progress-label {
-  font-weight: 600;
-  color: #1a202c;
+  font-weight: 700;
+  color: #3d2817;
   font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .progress-info {
@@ -146,24 +149,28 @@ const isCompleted = computed(() => {
 
 .progress-numbers {
   font-size: 0.85rem;
-  color: #4a5568;
+  color: #3d2817;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
 }
 
 .progress-percentage {
   font-size: 0.85rem;
-  font-weight: 600;
-  color: #1a202c;
+  font-weight: 700;
+  color: #3d2817;
   min-width: 40px;
   text-align: right;
+  font-family: 'Courier New', monospace;
 }
 
 /* Прогресс-бар - базовые стили */
 .progress-bar {
   width: 100%;
-  background: #e2e8f0;
-  border-radius: 4px;
+  background: rgba(61, 40, 23, 0.2);
+  border-radius: 0;
   overflow: hidden;
   position: relative;
+  border: 2px solid #3d2817;
 }
 
 /* Размеры */
@@ -182,27 +189,31 @@ const isCompleted = computed(() => {
 /* Заполнение - базовые стили */
 .progress-fill {
   height: 100%;
-  border-radius: 4px;
+  border-radius: 0;
   transition: width 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
-/* Варианты цветов */
+/* Варианты цветов - Винтажная палитра */
 .progress-fill--default {
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: #3d2817;
+  box-shadow: inset 0 0 4px rgba(245, 235, 224, 0.3);
 }
 
 .progress-fill--success {
-  background: linear-gradient(90deg, #48bb78, #38a169);
+  background: #3d2817;
+  box-shadow: inset 0 0 4px rgba(245, 235, 224, 0.4);
 }
 
 .progress-fill--warning {
-  background: linear-gradient(90deg, #f6ad55, #ed8936);
+  background: #523825;
+  box-shadow: inset 0 0 4px rgba(245, 235, 224, 0.3);
 }
 
 .progress-fill--danger {
-  background: linear-gradient(90deg, #f56565, #e53e3e);
+  background: #3d2817;
+  box-shadow: inset 0 0 4px rgba(245, 235, 224, 0.3);
 }
 
 /* Анимированный блик */
@@ -215,7 +226,7 @@ const isCompleted = computed(() => {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.4),
+    rgba(245, 235, 224, 0.3),
     transparent
   );
   animation: shine 2s ease-in-out infinite;
@@ -275,18 +286,18 @@ const isCompleted = computed(() => {
 
 /* Улучшенная доступность */
 .progress-fill:focus {
-  outline: 2px solid #667eea;
+  outline: 2px solid #3d2817;
   outline-offset: 2px;
 }
 
 /* Высокий контраст для лучшей доступности */
 @media (prefers-contrast: high) {
   .progress-bar {
-    border: 1px solid #000;
+    border: 2px solid #3d2817;
   }
   
   .progress-fill--default {
-    background: #000;
+    background: #3d2817;
   }
 }
 

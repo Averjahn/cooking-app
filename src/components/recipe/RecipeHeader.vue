@@ -95,19 +95,25 @@ const completionPercentage = computed(() => {
 }
 
 .exit-button {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #3d2817;
+  color: #f5ebe0;
+  border: 2px solid #3d2817;
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  border-radius: 0;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
 }
 
 .exit-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  background: #523825;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(61, 40, 23, 0.6);
 }
 
 /* Основной контент */
@@ -118,27 +124,55 @@ const completionPercentage = computed(() => {
 .recipe-title {
   font-size: 1.8rem;
   font-weight: 700;
-  color: white;
+  color: #f5ebe0;
   margin: 0 0 1rem 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 0 rgba(61, 40, 23, 0.8);
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-family: 'Courier New', monospace;
 }
 
 /* Индикатор шага */
 .step-indicator {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
+  background: #f5ebe0;
+  border-radius: 0;
   padding: 0.8rem 1.2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: none;
+  border: 3px solid #3d2817;
+  box-shadow: 4px 4px 0 rgba(61, 40, 23, 0.6);
+  position: relative;
+}
+
+/* Текстура для индикатора */
+.step-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: 
+    radial-gradient(circle, rgba(61, 40, 23, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+.step-indicator > * {
+  position: relative;
+  z-index: 1;
 }
 
 .step-text {
-  color: white;
+  color: #3d2817;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 700;
   display: block;
   margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Прогресс */
@@ -150,25 +184,28 @@ const completionPercentage = computed(() => {
 
 .progress-bar {
   flex: 1;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+  height: 8px;
+  background: rgba(61, 40, 23, 0.2);
+  border-radius: 0;
   overflow: hidden;
+  border: 2px solid #3d2817;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #48bb78, #38a169);
-  border-radius: 3px;
+  background: #3d2817;
+  border-radius: 0;
   transition: width 0.3s ease;
+  box-shadow: inset 0 0 4px rgba(245, 235, 224, 0.3);
 }
 
 .progress-text {
-  color: white;
+  color: #3d2817;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   min-width: 40px;
   text-align: right;
+  font-family: 'Courier New', monospace;
 }
 
 /* Адаптивность */

@@ -138,12 +138,12 @@ const previousButtonClasses = computed(() => {
 
 /* Базовые стили кнопок */
 .nav-button {
-  border: none;
+  border: 2px solid #3d2817;
   padding: 0.6rem 1.2rem;
-  border-radius: 16px;
-  font-weight: 500;
+  border-radius: 0;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-size: 0.85rem;
   min-width: 100px;
   text-align: center;
@@ -151,6 +151,9 @@ const previousButtonClasses = computed(() => {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Кнопка "Назад" */
@@ -197,7 +200,7 @@ const previousButtonClasses = computed(() => {
 
 /* Фокус для доступности */
 .nav-button:focus {
-  outline: 2px solid #667eea;
+  outline: 2px solid #3d2817;
   outline-offset: 2px;
 }
 
@@ -272,15 +275,15 @@ const previousButtonClasses = computed(() => {
 /* Высокий контраст */
 @media (prefers-contrast: high) {
   .nav-button--previous {
-    border: 2px solid #000;
+    border: 3px solid #3d2817;
   }
   
   .nav-button--next {
-    border: 2px solid #000;
+    border: 3px solid #3d2817;
   }
   
   .step-navigation {
-    border-top-color: #000;
+    border-top-color: #3d2817;
   }
 }
 </style>

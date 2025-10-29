@@ -473,7 +473,8 @@ const initTelegramApp = async () => {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding-bottom: 60px; /* отступ под меню */
+  padding-bottom: 70px; /* отступ под меню */
+  background: #f5ebe0;
 }
 
 
