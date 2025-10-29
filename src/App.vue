@@ -5,6 +5,8 @@ import RecipeList from './components/RecipeList.vue'
 import RecipePlayer from './components/RecipePlayer.vue'
 import ErudaDebugger from './components/ErudaDebugger.vue'
 import LanguageSwitcher from './components/LanguageSwitcher.vue'
+import ThemeSwitcher from './components/ThemeSwitcher.vue'
+import { useThemeStore } from './stores/theme'
 import { useTelegramUserStore } from './stores/telegramUser'
 import { useRecipesStore } from './stores/recipes'
 import { useLanguageStore } from './stores/language'
@@ -15,6 +17,7 @@ const telegramUserStore = useTelegramUserStore()
 const recipesStore = useRecipesStore()
 const languageStore = useLanguageStore()
 const { t } = useI18n()
+const themeStore = useThemeStore()
 
 // Состояние навигации
 const currentView = ref<'profile' | 'recipes'>('profile')
@@ -29,6 +32,7 @@ onMounted(() => {
   setTimeout(() => {
     initTelegramApp()
   }, 100)
+  themeStore.initTheme()
 })
 
 /**
@@ -105,7 +109,7 @@ const initTelegramApp = async () => {
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" :class="themeStore.themeClass">
     <!-- Индикатор загрузки -->
     <div v-if="telegramUserStore.isLoading" class="loading-overlay">
       <div class="loading-spinner">
@@ -120,7 +124,10 @@ const initTelegramApp = async () => {
       <header v-if="!hasActiveRecipe" class="app-header">
         <div class="app-header-top">
           <div class="app-icon">☕</div>
-          <LanguageSwitcher />
+          <div style="display:flex; gap:8px; align-items:center">
+            <ThemeSwitcher />
+            <LanguageSwitcher />
+          </div>
         </div>
         <h1 class="app-title">{{ t('app.title') }}</h1>
       </header>
@@ -177,6 +184,27 @@ const initTelegramApp = async () => {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow: hidden;
+}
+
+/* ТЕМЫ: CSS-переменные палитры */
+#app.theme-coffee {
+  --bg: #f5ebe0;
+  --ink: #3d2817;
+  --ink-2: #523825;
+  --card: #f5ebe0;
+  --btn-bg: #3d2817;
+  --btn-fg: #f5ebe0;
+  --shadow: rgba(61, 40, 23, 0.6);
+}
+
+#app.theme-classic {
+  --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --ink: #ffffff;
+  --ink-2: #e5e7ff;
+  --card: #ffffff;
+  --btn-bg: rgba(255, 255, 255, 0.15);
+  --btn-fg: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.2);
 }
 
 /* Индикатор загрузки - Черно-белый стиль */
