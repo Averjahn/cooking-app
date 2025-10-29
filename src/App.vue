@@ -4,12 +4,17 @@ import HomeView from './views/HomeView.vue'
 import RecipeList from './components/RecipeList.vue'
 import RecipePlayer from './components/RecipePlayer.vue'
 import ErudaDebugger from './components/ErudaDebugger.vue'
+import LanguageSwitcher from './components/LanguageSwitcher.vue'
 import { useTelegramUserStore } from './stores/telegramUser'
 import { useRecipesStore } from './stores/recipes'
+import { useLanguageStore } from './stores/language'
+import { useI18n } from './composables/useI18n'
 
 // Используем Pinia store
 const telegramUserStore = useTelegramUserStore()
 const recipesStore = useRecipesStore()
+const languageStore = useLanguageStore()
+const { t } = useI18n()
 
 // Состояние навигации
 const currentView = ref<'profile' | 'recipes'>('profile')
@@ -72,12 +77,18 @@ const initTelegramApp = async () => {
       // Устанавливаем данные пользователя
       if (userData) {
         telegramUserStore.setUser(userData)
+        // Инициализируем язык из Telegram
+        languageStore.initLanguage(userData.language_code)
       } else {
         telegramUserStore.enableTestMode()
+        // Инициализируем язык по умолчанию
+        languageStore.initLanguage()
       }
 
     } else {
       telegramUserStore.enableTestMode()
+      // Инициализируем язык по умолчанию
+      languageStore.initLanguage()
     }
 
   } catch (err) {
@@ -99,7 +110,7 @@ const initTelegramApp = async () => {
     <div v-if="telegramUserStore.isLoading" class="loading-overlay">
       <div class="loading-spinner">
         <div class="spinner"></div>
-        <p>Инициализация Telegram WebApp...</p>
+        <p>{{ t('app.initialization') }}</p>
       </div>
     </div>
 
@@ -107,8 +118,11 @@ const initTelegramApp = async () => {
     <div v-else class="app-container">
       <!-- Хедер приложения -->
       <header v-if="!hasActiveRecipe" class="app-header">
-        <div class="app-icon">👨‍🍳</div>
-        <h1 class="app-title">Ваш персональный помощник в мире кулинарии</h1>
+        <div class="app-header-top">
+          <div class="app-icon">👨‍🍳</div>
+          <LanguageSwitcher />
+        </div>
+        <h1 class="app-title">{{ t('app.title') }}</h1>
       </header>
 
       <!-- Контент -->
@@ -124,10 +138,10 @@ const initTelegramApp = async () => {
           />
           <!-- Если выбран мульти-блочный рецепт - пока тоже показываем список (временно) -->
           <div v-else-if="recipesStore.currentMultiTaskRecipe" class="temp-message">
-            <h2>Мульти-блочный рецепт: {{ recipesStore.currentMultiTaskRecipe.title }}</h2>
-            <p>Компонент в разработке...</p>
+            <h2>{{ t('recipes.multiTaskRecipe') }}: {{ recipesStore.currentMultiTaskRecipe.title }}</h2>
+            <p>{{ t('recipes.inDevelopment') }}</p>
             <button @click="recipesStore.setAnyRecipe(null)" class="back-button">
-              ← Назад к списку
+              {{ t('recipes.backToList') }}
             </button>
           </div>
         </div>
@@ -138,14 +152,14 @@ const initTelegramApp = async () => {
           @click="currentView = 'profile'"
           :class="['app-nav-button', { 'app-nav-button--active': currentView === 'profile' }]"
         >
-          <span>Профиль</span>
+          <span>{{ t('navigation.profile') }}</span>
         </button>
 
         <button 
           @click="currentView = 'recipes'"
           :class="['app-nav-button', { 'app-nav-button--active': currentView === 'recipes' }]"
         >
-          <span>Рецепты</span>
+          <span>{{ t('navigation.recipes') }}</span>
         </button>
         </nav>
 
@@ -221,6 +235,14 @@ const initTelegramApp = async () => {
   padding: 60px 20px 20px;
   text-align: center;
   width: 100%;
+}
+
+.app-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 10px;
 }
 
 .app-icon {

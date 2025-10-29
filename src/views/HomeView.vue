@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useTelegramUserStore } from '../stores/telegramUser'
+import { useI18n } from '../composables/useI18n'
 
 // Используем Pinia store
 const telegramUserStore = useTelegramUserStore()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -26,7 +28,7 @@ const telegramUserStore = useTelegramUserStore()
         <!-- Основная информация -->
         <div class="user-info">
           <h2 class="user-name">
-            {{ telegramUserStore.userName }}
+            {{ telegramUserStore.userName || t('profile.user') }}
           </h2>
           
           <p v-if="telegramUserStore.user?.username" class="user-username">
@@ -39,7 +41,7 @@ const telegramUserStore = useTelegramUserStore()
         <!-- Статус -->
         <div v-if="telegramUserStore.isTestMode" class="user-status">
           <span class="status-badge test">
-            🧪 Тестовый режим
+            {{ t('profile.testMode') }}
           </span>
         </div>
       </div>
@@ -48,8 +50,8 @@ const telegramUserStore = useTelegramUserStore()
     <!-- Сообщение об отсутствии данных -->
     <div v-else-if="!telegramUserStore.isLoading" class="no-data-message">
       <div class="no-data-icon">⚠️</div>
-      <h3>Данные пользователя не найдены</h3>
-      <p>Проверьте консоль браузера для отладочной информации</p>
+      <h3>{{ t('app.userNotFound') }}</h3>
+      <p>{{ t('app.userNotFoundSubtext') }}</p>
     </div>
   </div>
 </template>

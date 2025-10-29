@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useRecipesStore } from '../stores/recipes'
+import { useI18n } from '../composables/useI18n'
 import type { AnyRecipe } from '../types/recipes'
 
 const recipesStore = useRecipesStore()
+const { t, pluralize } = useI18n()
 
 const selectRecipe = (recipe: AnyRecipe) => {
   recipesStore.setAnyRecipe(recipe)
@@ -10,23 +12,7 @@ const selectRecipe = (recipe: AnyRecipe) => {
 
 // Функция для правильного склонения слова "шаг"
 const getStepText = (count: number): string => {
-  const lastDigit = count % 10
-  const lastTwoDigits = count % 100
-
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
-    return 'шагов'
-  }
-
-  switch (lastDigit) {
-    case 1:
-      return 'шаг'
-    case 2:
-    case 3:
-    case 4:
-      return 'шага'
-    default:
-      return 'шагов'
-  }
+  return pluralize(count, t('recipes.steps'), t('recipes.steps2'), t('recipes.steps5'))
 }
 
 // Функция для подсчета общего времени приготовления
@@ -42,7 +28,7 @@ const getTotalTime = (recipe: AnyRecipe): string => {
       }
       return total
     }, 0)
-    return `${minutes} мин`
+    return `${minutes} ${t('recipes.minutes')}`
   }
 }
 
@@ -59,23 +45,7 @@ const getStepsCount = (recipe: AnyRecipe): number => {
 const getStepLabel = (recipe: AnyRecipe, count: number): string => {
   if ('blocks' in recipe) {
     // Для мульти-блочных рецептов используем "блок"
-    const lastDigit = count % 10
-    const lastTwoDigits = count % 100
-
-    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
-      return 'блоков'
-    }
-
-    switch (lastDigit) {
-      case 1:
-        return 'блок'
-      case 2:
-      case 3:
-      case 4:
-        return 'блока'
-      default:
-        return 'блоков'
-    }
+    return pluralize(count, t('recipes.blocks'), t('recipes.blocks2'), t('recipes.blocks5'))
   } else {
     // Для обычных рецептов используем существующую функцию
     return getStepText(count)
