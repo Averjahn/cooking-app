@@ -7,7 +7,6 @@ export const coffeeRecipes: Recipe[] = [
     title: 'Эспрессо',
     description: 'Классический итальянский эспрессо - основа всех кофейных напитков',
     image: '☕',
-    difficulty: 'Средняя',
     steps: [
       {
         type: 'ingredients',
@@ -57,7 +56,6 @@ export const coffeeRecipes: Recipe[] = [
     title: 'Капучино',
     description: 'Итальянский напиток: эспрессо с молочной пеной',
     image: '☕',
-    difficulty: 'Сложная',
     steps: [
       {
         type: 'ingredients',
@@ -108,7 +106,6 @@ export const coffeeRecipes: Recipe[] = [
     title: 'Вьетнамский кофе',
     description: 'Крепкий кофе с сгущенным молоком - традиционный вьетнамский напиток',
     image: '☕',
-    difficulty: 'Легкая',
     steps: [
       {
         type: 'ingredients',
@@ -166,7 +163,6 @@ export const coffeeRecipes: Recipe[] = [
     title: 'Флэт Уайт',
     description: 'Австралийский напиток: двойной эспрессо с микро-пеной',
     image: '☕',
-    difficulty: 'Сложная',
     steps: [
       {
         type: 'ingredients',
@@ -210,7 +206,6 @@ export const coffeeRecipes: Recipe[] = [
     title: 'Турецкий кофе',
     description: 'Традиционный способ заваривания кофе на песке или в джезве',
     image: '☕',
-    difficulty: 'Средняя',
     steps: [
       {
         type: 'ingredients',
@@ -269,7 +264,6 @@ export const coffeeRecipes: Recipe[] = [
     title: 'Холодный Брю',
     description: 'Холодное заваривание кофе методом холодной экстракции',
     image: '☕',
-    difficulty: 'Легкая',
     steps: [
       {
         type: 'ingredients',
