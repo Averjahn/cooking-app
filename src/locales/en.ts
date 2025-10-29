@@ -24,6 +24,7 @@ export default {
     user: 'User'
   },
   recipes: {
+    recipe: 'Recipe',
     step: 'step',
     steps: 'step',
     steps2: 'steps',
@@ -43,7 +44,6 @@ export default {
     of: 'of',
     completed: 'Recipe completed!',
     completedMessage: 'Congratulations! You have successfully cooked',
-    backToRecipes: 'Back to recipes',
     fire: 'Fire',
     timeLeft: 'Time left',
     minutes: 'min.',

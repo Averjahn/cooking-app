@@ -24,6 +24,7 @@ export default {
     user: 'Пользователь'
   },
   recipes: {
+    recipe: 'Рецепт',
     step: 'шаг',
     steps: 'шаг',
     steps2: 'шага',
@@ -43,7 +44,6 @@ export default {
     of: 'из',
     completed: 'Рецепт завершен!',
     completedMessage: 'Поздравляем! Вы успешно приготовили',
-    backToRecipes: 'Вернуться к рецептам',
     fire: 'Огонь',
     timeLeft: 'Осталось',
     minutes: 'мин.',

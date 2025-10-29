@@ -5,6 +5,7 @@
 
 <script setup lang="ts">
 import type { Recipe } from '../../types/recipes'
+import { useI18n } from '../../composables/useI18n'
 
 interface Props {
   /** Рецепт для отображения */
@@ -29,6 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<Emits>()
+const { t } = useI18n()
 
 /**
  * Обработчик нажатия кнопки "Назад"
@@ -51,7 +53,7 @@ const completionPercentage = computed(() => {
     <!-- Кнопка выхода -->
     <div v-if="showBackButton" class="exit-section">
       <button @click="handleBackClick" class="exit-button">
-        ← Назад к рецептам
+        {{ t('recipe.backToRecipes') }}
       </button>
     </div>
 
@@ -62,7 +64,7 @@ const completionPercentage = computed(() => {
       <!-- Индикатор шага -->
       <div class="step-indicator">
         <span class="step-text">
-          Шаг {{ currentStepIndex + 1 }} из {{ recipe.steps.length }}
+          {{ t('recipe.step') }} {{ currentStepIndex + 1 }} {{ t('recipe.of') }} {{ recipe.steps.length }}
         </span>
         
         <!-- Прогресс бар -->

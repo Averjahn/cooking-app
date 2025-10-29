@@ -5,6 +5,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from '../../composables/useI18n'
+
 interface Props {
   /** Можно ли перейти к предыдущему шагу */
   canGoPrevious: boolean
@@ -27,14 +29,20 @@ interface Emits {
   (e: 'next'): void
 }
 
+const { t } = useI18n()
+
 // Определяем пропсы с значениями по умолчанию
 const props = withDefaults(defineProps<Props>(), {
-  nextButtonText: 'Далее →',
-  previousButtonText: '← Назад',
+  nextButtonText: computed(() => `${t('common.next')} →`).value,
+  previousButtonText: computed(() => `← ${t('common.back')}`).value,
   nextDisabled: false
 })
 
 const emit = defineEmits<Emits>()
+
+// Вычисляемые значения для текстов кнопок
+const nextText = computed(() => props.nextButtonText || `${t('common.next')} →`)
+const previousText = computed(() => props.previousButtonText || `← ${t('common.back')}`)
 
 /**
  * Обработчик нажатия кнопки "Назад"
@@ -90,7 +98,7 @@ const previousButtonClasses = computed(() => {
       @click="handlePrevious"
       :disabled="!canGoPrevious"
     >
-      {{ previousButtonText }}
+      {{ previousText }}
     </button>
     
     <!-- Пустое место если нельзя идти назад -->
@@ -103,7 +111,7 @@ const previousButtonClasses = computed(() => {
       @click="handleNext"
       :disabled="nextDisabled || !canGoNext"
     >
-      {{ nextButtonText }}
+      {{ nextText }}
     </button>
     
     <!-- Пустое место если нет кнопки "Далее" -->

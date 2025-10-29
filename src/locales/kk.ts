@@ -24,6 +24,7 @@ export default {
     user: 'Пайдаланушы'
   },
   recipes: {
+    recipe: 'Рецепт',
     step: 'қадам',
     steps: 'қадам',
     steps2: 'қадам',
@@ -43,7 +44,6 @@ export default {
     of: 'ішінен',
     completed: 'Рецепт аяқталды!',
     completedMessage: 'Құттықтаймыз! Сіз сәтті дайындадыңыз',
-    backToRecipes: 'Рецепттерге оралу',
     fire: 'От',
     timeLeft: 'Қалды',
     minutes: 'мин.',

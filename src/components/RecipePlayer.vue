@@ -8,6 +8,7 @@ import { computed, onUnmounted, ref } from 'vue'
 import { useRecipesStore } from '../stores/recipes'
 import type { Recipe } from '../types/recipes'
 import { useSimpleTimer } from '../composables/useSimpleTimer'
+import { useI18n } from '../composables/useI18n'
 
 // Импорт компонентов
 import RecipeHeader from './recipe/RecipeHeader.vue'
@@ -25,6 +26,7 @@ const props = defineProps<Props>()
 
 // Используем хранилище рецептов
 const recipesStore = useRecipesStore()
+const { t } = useI18n()
 
 // Используем композабл для параллельных таймеров
 const { reset: resetParallelTimers } = useSimpleTimer()
@@ -157,10 +159,10 @@ onUnmounted(() => {
       <!-- Рецепт завершен -->
       <div v-if="isRecipeCompleted" class="recipe-complete">
         <div class="complete-icon">🎉</div>
-        <h3>Рецепт завершен!</h3>
-        <p>Поздравляем! Вы успешно приготовили {{ recipe.title }}</p>
+        <h3>{{ t('recipe.completed') }}</h3>
+        <p>{{ t('recipe.completedMessage') }} {{ recipe.title }}</p>
         <button @click="handleBackToRecipes" class="complete-button">
-          Вернуться к рецептам
+          {{ t('recipe.backToRecipes') }}
         </button>
       </div>
 

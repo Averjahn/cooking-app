@@ -5,6 +5,7 @@
 
 <script setup lang="ts">
 import type { RecipeStep } from '../../types/recipes'
+import { useI18n } from '../../composables/useI18n'
 
 interface Props {
   /** Шаг рецепта с ингредиентами */
@@ -22,6 +23,7 @@ import { computed } from 'vue'
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const { t } = useI18n()
 
 /**
  * Обработчик нажатия на кнопку
@@ -58,7 +60,7 @@ const hasIngredients = computed(() => {
     
     <!-- Сообщение об отсутствии ингредиентов -->
     <div v-else class="no-ingredients">
-      <p>Ингредиенты не указаны для этого шага</p>
+      <p>{{ t('recipe.ingredientsNotSpecified') }}</p>
     </div>
     
     <!-- Кнопки действий -->

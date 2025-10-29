@@ -7,6 +7,7 @@
 import { computed } from 'vue'
 import type { RecipeStep } from '../../types/recipes'
 import { ref } from 'vue'
+import { useI18n } from '../../composables/useI18n'
 
 interface Props {
   /** Шаг рецепта */
@@ -23,6 +24,7 @@ interface Emits {
 // Определяем пропсы и события
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const { t } = useI18n()
 
 // Простая заглушка для таймера (не используется в ActionStep)
 const timeLeft = ref(0)
@@ -44,7 +46,7 @@ const handleActionClick = (action: string): void => {
  */
 const fireInfo = computed(() => {
   if (!props.step.fire) return null
-  return `Огонь: ${props.step.fire}/9`
+  return `${t('recipe.fire')}: ${props.step.fire}/9`
 })
 
 /**
@@ -70,9 +72,9 @@ const timerStatus = computed(() => {
   
   const minutes = Math.floor(timeLeft.value / 60)
   if (minutes > 0) {
-    return `Осталось ${minutes} мин.`
+    return `${t('recipe.timeLeft')} ${minutes} ${t('recipe.minutes')}`
   } else {
-    return 'Почти готово!'
+    return t('recipe.almostReady')
   }
 })
 </script>
@@ -126,7 +128,7 @@ const timerStatus = computed(() => {
     <div v-if="step.timer && !isRunning" class="timer-hint">
       <span class="hint-icon">💡</span>
       <span class="hint-text">
-        Таймер запустится автоматически при нажатии на кнопку
+        {{ t('recipe.timerHint') }}
       </span>
     </div>
   </div>
