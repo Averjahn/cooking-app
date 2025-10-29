@@ -88,6 +88,7 @@ export interface Recipe {
   title: string
   description: string
   image: string
+  difficulty?: string // Уровень сложности — опционально для совместимости с простыми рецептами
   steps: RecipeStep[]
 }
 
