@@ -20,32 +20,32 @@ export const coffeeRecipes: Recipe[] = [
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Помелите 7-9 грамм кофе до мелкого помола, похожего на сахарную пудру',
         fire: 9,
         buttons: ['Помолен']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Установите температуру воды 90-96°C и давление 9 бар',
         fire: 5,
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Утрамбуйте кофе в портафильтре равномерным движением',
         fire: 3,
         buttons: ['Утрамбован']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Установите портафильтр в группу и начните экстракцию',
         fire: 9,
         timer: 30,
         buttons: ['Начать экстракцию']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Эспрессо готов! Должно получиться 25-30 мл напитка за 25-30 секунд',
         fire: 0,
         buttons: ['Попробовать']
@@ -70,33 +70,33 @@ export const coffeeRecipes: Recipe[] = [
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Приготовьте одну порцию эспрессо (30 мл)',
         fire: 9,
         timer: 30,
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Налейте 150 мл холодного молока в питчер',
         fire: 0,
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Взбейте молоко на паре до температуры 60-65°C. Молоко должно быть бархатистым и блестящим',
         fire: 9,
         timer: 45,
         buttons: ['Взбить пену']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Влейте молоко в эспрессо, начиная с середины чашки, затем создайте латте-арт',
         fire: 3,
         buttons: ['Влить молоко']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Капучино готов! Идеальное соотношение: 1/3 эспрессо, 1/3 молока, 1/3 пены',
         fire: 0,
         buttons: ['Насладиться']
@@ -122,39 +122,39 @@ export const coffeeRecipes: Recipe[] = [
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Налейте 2-3 столовые ложки сгущенного молока на дно стакана',
         fire: 0,
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Установите фин (фильтр для вьетнамского кофе) на стакан и засыпьте 2 столовые ложки кофе',
         fire: 3,
         buttons: ['Установлено']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Уплотните кофе прессом и залейте небольшим количеством горячей воды (90°C)',
         fire: 7,
         buttons: ['Залить воду']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Подождите 30 секунд для блума (раскрытия вкуса), затем долейте воду до верха',
         fire: 9,
         timer: 30,
         buttons: ['Долить воду']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Подождите 4-5 минут, пока кофе капает через фильтр',
         fire: 5,
         timer: 300,
         buttons: ['Продолжить']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Перемешайте кофе с молоком. Добавьте лед для холодного варианта',
         fire: 0,
         buttons: ['Готово']
@@ -178,27 +178,27 @@ export const coffeeRecipes: Recipe[] = [
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Приготовьте двойной эспрессо (60 мл)',
         fire: 9,
         timer: 30,
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Взбейте 120 мл молока до микро-пены (менее воздушной, чем для капучино)',
         fire: 9,
         timer: 40,
         buttons: ['Взбить']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Влейте молоко в эспрессо тонкой струей, создавая однородную текстуру',
         fire: 3,
         buttons: ['Влить']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Флэт Уайт готов! Отличается от латте меньшим количеством молока и меньшей пеной',
         fire: 0,
         buttons: ['Попробовать']
@@ -224,39 +224,39 @@ export const coffeeRecipes: Recipe[] = [
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Отмерьте 1 чайную ложку кофе очень мелкого помола на чашку',
         fire: 0,
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Добавьте кофе в джезву (турку) вместе с сахаром и холодной водой. Не перемешивайте!',
         fire: 0,
         buttons: ['Добавить']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Поставьте джезву на медленный огонь. Дождитесь образования пены',
         fire: 7,
         timer: 120,
         buttons: ['Начать нагрев']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Снимите пену ложкой и распределите по чашкам (по 1 ложке на чашку)',
         fire: 3,
         buttons: ['Снять пену']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Верните джезву на огонь и дождитесь повторного закипания. Повторите 2-3 раза',
         fire: 7,
         timer: 30,
         buttons: ['Второе кипение']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Разлейте кофе по чашкам, включая осадок. Дайте постоять минуту перед подачей',
         fire: 0,
         timer: 60,
@@ -282,32 +282,32 @@ export const coffeeRecipes: Recipe[] = [
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Засыпьте 100 грамм кофе грубого помола в банку или френч-пресс',
         fire: 0,
         buttons: ['Готово']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Залейте 500 мл холодной фильтрованной воды. Аккуратно перемешайте',
         fire: 0,
         buttons: ['Залить воду']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Плотно закройте и оставьте в холодильнике на 12-24 часа',
         fire: 0,
         timer: 43200,
         buttons: ['В холодильник']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Процедите кофе через фильтр или сито',
         fire: 0,
         buttons: ['Процедить']
       },
       {
-        type: 'action',
+        type: 'step',
         text: 'Подавайте холодный брю со льдом. Концентрат можно разбавлять водой или молоком',
         fire: 0,
         buttons: ['Готово']
