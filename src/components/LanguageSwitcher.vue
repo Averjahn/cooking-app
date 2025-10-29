@@ -93,20 +93,41 @@ const closeMenu = () => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
-  color: white;
+  background: #3d2817;
+  border: 2px solid #3d2817;
+  border-radius: 0;
+  color: #f5ebe0;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.9rem;
-  font-weight: 500;
-  backdrop-filter: blur(10px);
+  font-weight: 600;
+  z-index: 100;
+  position: relative;
+  box-shadow: 4px 4px 0 rgba(61, 40, 23, 0.6);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* Текстура для кнопки */
+.language-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  background-image: 
+    radial-gradient(circle, rgba(245, 235, 224, 0.1) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
 }
 
 .language-button:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
+  background: #523825;
+  border-color: #523825;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 rgba(61, 40, 23, 0.6);
 }
 
 .language-icon {
@@ -123,13 +144,36 @@ const closeMenu = () => {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: #f5ebe0;
+  border: 3px solid #3d2817;
+  border-radius: 0;
+  box-shadow: 6px 6px 0 rgba(61, 40, 23, 0.6);
   min-width: 200px;
-  z-index: 1000;
+  z-index: 1001;
   overflow: hidden;
   animation: slideDown 0.2s ease-out;
+  position: relative;
+}
+
+/* Текстура для меню */
+.language-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  background-image: 
+    radial-gradient(circle, rgba(61, 40, 23, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.language-menu > * {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes slideDown {
@@ -148,21 +192,24 @@ const closeMenu = () => {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid #e2e8f0;
-  background: #f7fafc;
+  border-bottom: 3px solid #3d2817;
+  background: #f5ebe0;
+  font-family: 'Courier New', monospace;
 }
 
 .language-menu-header span {
-  font-weight: 600;
-  color: #1a202c;
+  font-weight: 700;
+  color: #3d2817;
   font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .close-button {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #718096;
+  color: #3d2817;
   cursor: pointer;
   padding: 0;
   width: 24px;
@@ -170,13 +217,14 @@ const closeMenu = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 0;
   transition: all 0.2s ease;
+  font-weight: 700;
 }
 
 .close-button:hover {
-  background: #e2e8f0;
-  color: #1a202c;
+  background: rgba(61, 40, 23, 0.1);
+  color: #3d2817;
 }
 
 .language-list {
@@ -191,21 +239,26 @@ const closeMenu = () => {
   padding: 0.75rem 1rem;
   background: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
-  color: #1a202c;
+  color: #3d2817;
   font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 
 .language-item:hover {
-  background: #f7fafc;
+  background: rgba(61, 40, 23, 0.1);
 }
 
 .language-item--active {
-  background: #edf2f7;
-  font-weight: 600;
+  background: #3d2817;
+  color: #f5ebe0;
+  font-weight: 700;
 }
 
 .language-name {
@@ -213,10 +266,14 @@ const closeMenu = () => {
 }
 
 .language-check {
-  color: #48bb78;
+  color: #3d2817;
   font-weight: 700;
   font-size: 1.2rem;
   margin-left: 0.5rem;
+}
+
+.language-item--active .language-check {
+  color: #f5ebe0;
 }
 
 /* Адаптивность */

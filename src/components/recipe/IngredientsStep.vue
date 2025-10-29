@@ -107,16 +107,17 @@ const hasIngredients = computed(() => {
   align-items: center;
   text-align: center;
   padding: 1rem 0.5rem;
-  background: #f7fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  background: #f5ebe0;
+  border-radius: 0;
+  border: 2px solid #3d2817;
   transition: all 0.2s ease;
+  font-family: 'Courier New', monospace;
 }
 
 .ingredient-item:hover {
-  background: #edf2f7;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: rgba(61, 40, 23, 0.1);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
 }
 
 .ingredient-icon {
@@ -126,18 +127,24 @@ const hasIngredients = computed(() => {
 }
 
 .ingredient-name {
-  font-weight: 500;
-  color: #1a202c;
+  font-weight: 700;
+  color: #3d2817;
   font-size: 0.85rem;
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Сообщение об отсутствии ингредиентов */
 .no-ingredients {
   text-align: center;
   padding: 2rem;
-  color: #718096;
-  font-style: italic;
+  color: #3d2817;
+  font-style: normal;
+  background: #f5ebe0;
+  border: 2px solid #3d2817;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
 }
 
 .no-ingredients p {
@@ -154,23 +161,27 @@ const hasIngredients = computed(() => {
 }
 
 .action-button {
-  background: #48bb78;
-  color: white;
-  border: none;
+  background: #3d2817;
+  color: #f5ebe0;
+  border: 2px solid #3d2817;
   padding: 0.6rem 1.2rem;
-  border-radius: 16px;
-  font-weight: 500;
+  border-radius: 0;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-size: 0.85rem;
   min-width: 100px;
   text-align: center;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
 }
 
 .action-button:hover {
-  background: #38a169;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(72, 187, 120, 0.3);
+  background: #523825;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(61, 40, 23, 0.6);
 }
 
 .action-button:active {

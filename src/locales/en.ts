@@ -10,7 +10,7 @@ export default {
     close: 'Close'
   },
   app: {
-    title: 'Your personal cooking assistant',
+    title: 'Coffee Workshop',
     initialization: 'Initializing Telegram WebApp...',
     userNotFound: 'User data not found',
     userNotFoundSubtext: 'Check the browser console for debug information'

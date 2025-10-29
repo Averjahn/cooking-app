@@ -10,7 +10,7 @@ export default {
     close: 'Закрыть'
   },
   app: {
-    title: 'Ваш персональный помощник в мире кулинарии',
+    title: 'Кофейная Мастерская',
     initialization: 'Инициализация Telegram WebApp...',
     userNotFound: 'Данные пользователя не найдены',
     userNotFoundSubtext: 'Проверьте консоль браузера для отладочной информации'

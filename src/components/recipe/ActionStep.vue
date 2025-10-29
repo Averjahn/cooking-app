@@ -152,40 +152,68 @@ const timerStatus = computed(() => {
 
 /* Информация об огне */
 .fire-info {
-  background: #fed7d7;
-  color: #742a2a;
+  background: #3d2817;
+  color: #f5ebe0;
   padding: 0.75rem 1rem;
-  border-radius: 12px;
-  font-weight: 600;
+  border-radius: 0;
+  font-weight: 700;
   margin-bottom: 1.5rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid #feb2b2;
+  border: 3px solid #3d2817;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
 }
 
 /* Секция таймера */
 .timer-section {
-  background: #f7fafc;
-  border-radius: 16px;
+  background: #f5ebe0;
+  border-radius: 0;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border: 1px solid #e2e8f0;
+  border: 4px solid #3d2817;
+  box-shadow: 4px 4px 0 rgba(61, 40, 23, 0.6);
+  position: relative;
+}
+
+/* Текстура для таймера */
+.timer-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: 
+    radial-gradient(circle, rgba(61, 40, 23, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+.timer-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .timer-display {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1a202c;
+  color: #3d2817;
   margin-bottom: 0.5rem;
   font-family: 'Courier New', monospace;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: none;
+  letter-spacing: 2px;
 }
 
 .timer-status {
   font-size: 0.9rem;
-  color: #4a5568;
+  color: #3d2817;
   margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 /* Прогресс таймера */
@@ -220,14 +248,14 @@ const timerStatus = computed(() => {
 }
 
 .action-button {
-  background: #48bb78;
-  color: white;
-  border: none;
+  background: #3d2817;
+  color: #f5ebe0;
+  border: 2px solid #3d2817;
   padding: 0.6rem 1.2rem;
-  border-radius: 16px;
-  font-weight: 500;
+  border-radius: 0;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-size: 0.85rem;
   min-width: 100px;
   text-align: center;
@@ -235,18 +263,24 @@ const timerStatus = computed(() => {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
 }
 
 .action-button:hover:not(:disabled) {
-  background: #38a169;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(72, 187, 120, 0.3);
+  background: #523825;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(61, 40, 23, 0.6);
 }
 
 .action-button:disabled {
-  background: #a0aec0;
+  background: rgba(61, 40, 23, 0.3);
+  color: rgba(245, 235, 224, 0.5);
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .button-icon {
@@ -261,10 +295,14 @@ const timerStatus = computed(() => {
   gap: 0.5rem;
   margin-top: 1rem;
   padding: 0.75rem;
-  background: #edf2f7;
-  border-radius: 8px;
+  background: #f5ebe0;
+  border-radius: 0;
   font-size: 0.85rem;
-  color: #4a5568;
+  color: #3d2817;
+  border: 2px solid #3d2817;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .hint-icon {

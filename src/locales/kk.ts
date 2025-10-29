@@ -10,7 +10,7 @@ export default {
     close: 'Жабу'
   },
   app: {
-    title: 'Сіздің жеке аспаптарыңыз аспап',
+    title: 'Кофе Мастерханасы',
     initialization: 'Telegram WebApp басталуда...',
     userNotFound: 'Пайдаланушы деректері табылмады',
     userNotFoundSubtext: 'Жөндеу ақпараты үшін браузер консолін тексеріңіз'

@@ -119,7 +119,7 @@ const initTelegramApp = async () => {
       <!-- Хедер приложения -->
       <header v-if="!hasActiveRecipe" class="app-header">
         <div class="app-header-top">
-          <div class="app-icon">👨‍🍳</div>
+          <div class="app-icon">☕</div>
           <LanguageSwitcher />
         </div>
         <h1 class="app-title">{{ t('app.title') }}</h1>
@@ -179,14 +179,15 @@ const initTelegramApp = async () => {
   overflow: hidden;
 }
 
-/* Индикатор загрузки */
+/* Индикатор загрузки - Черно-белый стиль */
 .loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #fff;
+  border: 4px solid #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,14 +196,15 @@ const initTelegramApp = async () => {
 
 .loading-spinner {
   text-align: center;
-  color: white;
+  color: #000;
+  font-family: 'Courier New', monospace;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid white;
+  border: 4px solid #000;
+  border-top: 4px solid transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
@@ -214,48 +216,172 @@ const initTelegramApp = async () => {
 }
 
 .loading-spinner p {
-  color: white;
+  color: #000;
   font-size: 16px;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-/* Основная структура */
+/* Основная структура - Винтажный стиль с теплыми цветами */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #f5ebe0;
+  color: #3d2817;
   box-sizing: border-box;
+  font-family: 'Courier New', 'Courier', monospace;
+  position: relative;
 }
 
-/* Заголовок приложения */
+/* Текстура фона - зернистость */
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-image: 
+    radial-gradient(circle at 20% 50%, transparent 20%, rgba(61, 40, 23, 0.02) 21%, rgba(61, 40, 23, 0.02) 34%, transparent 35%),
+    radial-gradient(circle at 60% 50%, transparent 20%, rgba(61, 40, 23, 0.02) 21%, rgba(61, 40, 23, 0.02) 34%, transparent 35%),
+    radial-gradient(circle at 40% 80%, transparent 20%, rgba(61, 40, 23, 0.02) 21%, rgba(61, 40, 23, 0.02) 34%, transparent 35%);
+  background-size: 4px 4px, 3px 3px, 5px 5px;
+  background-position: 0 0, 2px 2px, 1px 1px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Дополнительная текстура - линии */
+.app-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      #3d2817 2px,
+      #3d2817 4px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Заголовок приложения - Винтажный стиль */
 .app-header {
-  padding: 60px 20px 20px;
+  padding: 40px 20px 20px;
   text-align: center;
   width: 100%;
+  background: #f5ebe0;
+  border-bottom: 4px solid #3d2817;
+  position: relative;
+}
+
+/* Текстура для заголовка */
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233d2817' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-header > * {
+  position: relative;
+  z-index: 1;
 }
 
 .app-header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  padding: 0 10px;
+  margin-bottom: 2rem;
+  padding: 0 20px;
 }
 
 .app-icon {
   font-size: 4rem;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  margin-bottom: 0;
+  filter: none;
+  background: #3d2817;
+  color: #f5ebe0;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #3d2817;
+  box-shadow: 6px 6px 0 rgba(61, 40, 23, 0.6);
+  position: relative;
 }
 
-.app-title h1 {
-  font-size: 2.5rem;
+/* Текстура для иконки */
+.app-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(245, 235, 224, 0.1) 2px,
+      rgba(245, 235, 224, 0.1) 4px
+    );
+}
+
+.app-title {
+  font-size: 2rem;
   font-weight: 700;
-  margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  margin: 0;
+  color: #3d2817;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-family: 'Courier New', monospace;
+  border: 3px solid #3d2817;
+  padding: 1rem 2rem;
+  display: inline-block;
+  background: #f5ebe0;
+  box-shadow: 6px 6px 0 rgba(61, 40, 23, 0.6);
+  position: relative;
+}
+
+/* Текстура для заголовка */
+.app-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  background-image: 
+    radial-gradient(circle, rgba(61, 40, 23, 0.1) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
 }
 
 .app-title p {
@@ -265,22 +391,43 @@ const initTelegramApp = async () => {
   font-weight: 300;
 }
 
-/* Нижняя навигация — мобильное меню */
+/* Нижняя навигация — мобильное меню - Винтажный стиль */
 .app-navigation {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 70px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  background: #f5ebe0;
+  border-top: 4px solid #3d2817;
   z-index: 1000;
   padding: 0;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -4px 0 rgba(61, 40, 23, 0.6);
+  position: relative;
+}
+
+/* Текстура для навигации */
+.app-navigation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(61, 40, 23, 0.05) 40px,
+      rgba(61, 40, 23, 0.05) 41px
+    );
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Кнопки меню */
@@ -289,23 +436,34 @@ const initTelegramApp = async () => {
   height: 100%;
   border: none;
   background: transparent;
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 600;
+  color: #3d2817;
+  font-size: 0.85rem;
+  font-weight: 700;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease;
   cursor: pointer;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-right: 2px solid #3d2817;
+  position: relative;
+  z-index: 1;
+}
+
+.app-nav-button:last-child {
+  border-right: none;
 }
 
 .app-nav-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(61, 40, 23, 0.1);
 }
 
 .app-nav-button--active {
-  background: rgba(255, 255, 255, 0.25);
+  background: #3d2817;
+  color: #f5ebe0;
 }
 
 /* Чтобы контент не скрывался за меню */
@@ -319,35 +477,71 @@ const initTelegramApp = async () => {
 }
 
 
-/* Временное сообщение */
+/* Временное сообщение - Винтажный стиль */
 .temp-message {
   text-align: center;
   padding: 2rem;
-  color: white;
+  color: #3d2817;
+  background: #f5ebe0;
+  border: 4px solid #3d2817;
+  margin: 2rem;
+  box-shadow: 6px 6px 0 rgba(61, 40, 23, 0.6);
+  font-family: 'Courier New', monospace;
+  position: relative;
+}
+
+/* Текстура для сообщения */
+.temp-message::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: 
+    radial-gradient(circle, rgba(61, 40, 23, 0.1) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
 }
 
 .temp-message h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
 }
 
 .temp-message p {
   margin-bottom: 1.5rem;
-  opacity: 0.8;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 
 .back-button {
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  color: white;
+  padding: 12px 24px;
+  background: #3d2817;
+  border: 2px solid #3d2817;
+  border-radius: 0;
+  color: #f5ebe0;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
+  position: relative;
+  z-index: 1;
 }
 
 .back-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #523825;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(61, 40, 23, 0.6);
 }
 </style>

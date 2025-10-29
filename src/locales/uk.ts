@@ -10,7 +10,7 @@ export default {
     close: 'Закрити'
   },
   app: {
-    title: 'Ваш особистий помічник у світі кулінарії',
+    title: 'Кавова Майстерня',
     initialization: 'Ініціалізація Telegram WebApp...',
     userNotFound: 'Дані користувача не знайдено',
     userNotFoundSubtext: 'Перевірте консоль браузера для відлагоджувальної інформації'

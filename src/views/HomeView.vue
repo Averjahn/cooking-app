@@ -71,13 +71,15 @@ const { t } = useI18n()
 }
 
 .user-card {
-  background: white;
-  border-radius: 24px;
+  background: #fff;
+  border-radius: 0;
   padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
   text-align: center;
   position: relative;
   overflow: hidden;
+  border: 4px solid #000;
+  font-family: 'Courier New', monospace;
 }
 
 .user-avatar {
@@ -99,16 +101,16 @@ const { t } = useI18n()
 .avatar-fallback {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
+  border-radius: 0;
+  background: #000;
+  color: #fff;
   font-size: 2.5rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 4px solid white;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
 }
 
 .user-info {
@@ -118,15 +120,18 @@ const { t } = useI18n()
 .user-name {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #2d3748;
+  color: #000;
   margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .user-username {
-  color: #667eea;
+  color: #000;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 700;
   margin: 0;
+  font-family: 'Courier New', monospace;
 }
 
 
@@ -146,14 +151,23 @@ const { t } = useI18n()
 }
 
 .status-badge.test {
-  background: #fed7d7;
-  color: #742a2a;
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .no-data-message {
   text-align: center;
-  color: white;
+  color: #000;
   padding: 2rem;
+  background: #fff;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+  font-family: 'Courier New', monospace;
 }
 
 .no-data-icon {

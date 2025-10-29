@@ -212,24 +212,28 @@ onUnmounted(() => {
   padding: 1rem;
 }
 
-/* Контент шага */
+/* Контент шага - Винтажный стиль */
 .step-content {
-  background: white;
-  border-radius: 16px;
+  background: #fff;
+  border-radius: 0;
   padding: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
   margin-bottom: 1rem;
   width: 100%;
   box-sizing: border-box;
+  border: 4px solid #000;
+  font-family: 'Courier New', monospace;
 }
 
 /* Завершение рецепта */
 .recipe-complete {
   text-align: center;
-  background: white;
-  border-radius: 16px;
+  background: #fff;
+  border-radius: 0;
   padding: 2rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+  border: 4px solid #000;
+  font-family: 'Courier New', monospace;
 }
 
 .complete-icon {
@@ -240,32 +244,39 @@ onUnmounted(() => {
 .recipe-complete h3 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a202c;
+  color: #000;
   margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .recipe-complete p {
-  color: #4a5568;
+  color: #000;
   font-size: 0.9rem;
   margin: 0 0 1.25rem 0;
+  font-weight: 600;
 }
 
 .complete-button {
-  background: #48bb78;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 18px;
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
 }
 
 .complete-button:hover {
-  background: #38a169;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(72, 187, 120, 0.3);
+  background: #333;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
 }
 
 /* Адаптивность */

@@ -128,7 +128,7 @@ const previousButtonClasses = computed(() => {
   margin-top: 1.5rem;
   padding-top: 1rem;
   width: 100%;
-  border-top: 1px solid #e2e8f0;
+  border-top: 3px solid #3d2817;
 }
 
 /* Пустое место для выравнивания */
@@ -155,32 +155,36 @@ const previousButtonClasses = computed(() => {
 
 /* Кнопка "Назад" */
 .nav-button--previous {
-  background: #667eea;
-  color: white;
+  background: #3d2817;
+  color: #f5ebe0;
+  border: 2px solid #3d2817;
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
 }
 
 .nav-button--previous:hover:not(.nav-button--disabled) {
-  background: #5a67d8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  background: #523825;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(61, 40, 23, 0.6);
 }
 
 /* Кнопка "Далее" */
 .nav-button--next {
-  background: #48bb78;
-  color: white;
+  background: #3d2817;
+  color: #f5ebe0;
+  border: 2px solid #3d2817;
+  box-shadow: 3px 3px 0 rgba(61, 40, 23, 0.6);
 }
 
 .nav-button--next:hover:not(.nav-button--disabled) {
-  background: #38a169;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(72, 187, 120, 0.3);
+  background: #523825;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(61, 40, 23, 0.6);
 }
 
 /* Отключенное состояние */
 .nav-button--disabled {
-  background: #a0aec0 !important;
-  color: #718096 !important;
+  background: rgba(61, 40, 23, 0.3) !important;
+  color: rgba(245, 235, 224, 0.5) !important;
   cursor: not-allowed !important;
   transform: none !important;
   box-shadow: none !important;

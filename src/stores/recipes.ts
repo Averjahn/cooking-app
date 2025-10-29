@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { recipes, raguBolognese } from '../recipes/recipes'
+import { coffeeRecipes } from '../recipes/coffeeRecipes'
 import type { Recipe, MultiTaskRecipe, AnyRecipe } from '../types/recipes'
 
 export const useRecipesStore = defineStore('recipes', () => {
-  // Состояние для старых рецептов
-  const allRecipes = ref<Recipe[]>(recipes)
+  // Состояние для кофейных рецептов
+  const allRecipes = ref<Recipe[]>(coffeeRecipes)
   const currentRecipe = ref<Recipe | null>(null)
   const currentStepIndex = ref(0)
 
   // Состояние для новых мульти-блочных рецептов
-  const allMultiTaskRecipes = ref<MultiTaskRecipe[]>([raguBolognese])
+  const allMultiTaskRecipes = ref<MultiTaskRecipe[]>([])
   const currentMultiTaskRecipe = ref<MultiTaskRecipe | null>(null)
   const currentBlockId = ref<string | null>(null)
   const currentBlockStepIndex = ref(0)
