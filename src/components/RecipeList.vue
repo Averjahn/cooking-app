@@ -5,11 +5,25 @@ import type { AnyRecipe } from '../types/recipes'
 import CoffeeTabs from './CoffeeTabs.vue'
 import { ref, computed } from 'vue'
 
+// Fallback изображение (встроенный SVG)
+const FALLBACK_IMAGE =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    `<?xml version="1.0" encoding="UTF-8"?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='#f5ebe0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Courier New, monospace' font-size='48' fill='#3d2817'>COFFEE</text></svg>`
+  )
+
 const recipesStore = useRecipesStore()
 const { t, pluralize } = useI18n()
 
 const activeTab = ref<'all' | 'fav'>('all')
 const visibleList = computed(() => activeTab.value === 'all' ? recipesStore.allRecipesUnified : recipesStore.favoriteRecipes)
+
+const onImgError = (e: Event) => {
+  const img = e.target as HTMLImageElement
+  if (!img) return
+  img.onerror = null
+  img.src = FALLBACK_IMAGE
+}
 
 const selectRecipe = (recipe: AnyRecipe) => {
   recipesStore.setAnyRecipe(recipe)
@@ -74,6 +88,9 @@ const getStepLabel = (recipe: AnyRecipe, count: number): string => {
             v-if="recipe.image.startsWith('http')" 
             :src="recipe.image" 
             :alt="recipe.title" 
+            loading="lazy"
+            decoding="async"
+            @error="onImgError"
           />
           <!-- Если image это эмодзи -->
           <div 
