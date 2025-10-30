@@ -141,15 +141,16 @@ const closeMenu = () => {
 
 /* Выпадающее меню */
 .language-menu {
-  position: absolute;
-  top: calc(100% + 0.5rem + var(--safe-top));
-  right: 0;
+  /* Поверх всего интерфейса */
+  position: fixed;
+  top: calc(10px + var(--safe-top));
+  right: 10px;
   background: #f5ebe0;
   border: 3px solid #3d2817;
   border-radius: 0;
   box-shadow: 6px 6px 0 rgba(61, 40, 23, 0.6);
   min-width: 200px;
-  z-index: 1001;
+  z-index: 9999;
   overflow: hidden;
   animation: slideDown 0.2s ease-out;
   position: relative;
