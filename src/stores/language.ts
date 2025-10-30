@@ -7,22 +7,21 @@ import ru from '../locales/ru'
 import en from '../locales/en'
 import uk from '../locales/uk'
 import kk from '../locales/kk'
+import de from '../locales/de'
+import fr from '../locales/fr'
+import fi from '../locales/fi'
+import sv from '../locales/sv'
 
-export type SupportedLanguage = 'ru' | 'en' | 'uk' | 'kk'
+export type SupportedLanguage = 'ru' | 'en' | 'uk' | 'kk' | 'de' | 'fr' | 'fi' | 'sv'
 
-const translations: Record<SupportedLanguage, LocaleMessages> = {
-  ru,
-  en,
-  uk,
-  kk
-}
+const translations: Record<SupportedLanguage, LocaleMessages> = { ru, en, uk, kk, de, fr, fi, sv }
 
 export const useLanguageStore = defineStore('language', () => {
   // Текущий язык
   const currentLanguage = ref<SupportedLanguage>('ru')
   
   // Доступные языки
-  const availableLanguages: SupportedLanguage[] = ['ru', 'en', 'uk', 'kk']
+  const availableLanguages: SupportedLanguage[] = ['ru', 'en', 'uk', 'kk', 'de', 'fr', 'fi', 'sv']
 
   // Получить переводы для текущего языка
   const t = computed<LocaleMessages>(() => {
@@ -84,7 +83,11 @@ export const useLanguageStore = defineStore('language', () => {
       ru: 'Русский',
       en: 'English',
       uk: 'Українська',
-      kk: 'Қазақ'
+      kk: 'Қазақ',
+      de: 'Deutsch',
+      fr: 'Français',
+      fi: 'Suomi',
+      sv: 'Svenska'
     }
     return langNames[lang] || lang
   }

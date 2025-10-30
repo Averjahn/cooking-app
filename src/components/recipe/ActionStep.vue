@@ -247,7 +247,7 @@ const timerStatus = computed(() => {
 .action-buttons {
   display: flex;
   gap: 0.75rem;
-  justify-content: end;
+  justify-content: center;
   flex-wrap: wrap;
   margin: 0;
 }

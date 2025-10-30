@@ -2,8 +2,12 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { coffeeRecipes } from '../recipes/coffeeRecipes'
 import type { Recipe, MultiTaskRecipe, AnyRecipe } from '../types/recipes'
+import { fetchCoffeeImage } from '../utils/imageProvider'
+import { useLanguageStore } from './language'
+import { fetchCoffeeRecipesFromApi } from '../api/coffee'
 
 export const useRecipesStore = defineStore('recipes', () => {
+  const languageStore = useLanguageStore()
   // Состояние для кофейных рецептов
   const allRecipes = ref<Recipe[]>(coffeeRecipes)
   const currentRecipe = ref<Recipe | null>(null)
@@ -71,6 +75,29 @@ export const useRecipesStore = defineStore('recipes', () => {
     ...allRecipes.value,
     ...allMultiTaskRecipes.value
   ])
+
+  // Обогащение картинок через Pixabay (если указан ключ)
+  const enrichImages = async () => {
+    const lang = languageStore.currentLanguage
+    const updated: Recipe[] = []
+    for (const r of allRecipes.value) {
+      if (typeof r.image === 'string' && !r.image.startsWith('http')) {
+        const img = await fetchCoffeeImage(r.title, lang)
+        updated.push({ ...r, image: img || r.image })
+      } else {
+        updated.push(r)
+      }
+    }
+    allRecipes.value = updated
+  }
+
+  // Загрузка рецептов из внешнего API (SampleAPIs) с автопереводом
+  const loadFromApi = async () => {
+    const external = await fetchCoffeeRecipesFromApi()
+    if (external && external.length > 0) {
+      allRecipes.value = external
+    }
+  }
 
   // Действия
   const setCurrentRecipe = (recipe: Recipe | null) => {
@@ -212,6 +239,8 @@ export const useRecipesStore = defineStore('recipes', () => {
     completeBlock,
     resetMultiTaskRecipe,
     getMultiTaskRecipeById,
-    setAnyRecipe
+    setAnyRecipe,
+    enrichImages,
+    loadFromApi
   }
 })

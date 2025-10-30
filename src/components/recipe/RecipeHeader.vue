@@ -44,7 +44,9 @@ const handleBackClick = (): void => {
  */
 const completionPercentage = computed(() => {
   if (props.recipe.steps.length === 0) return 0
-  return Math.round((props.currentStepIndex / props.recipe.steps.length) * 100)
+  // Индексы шагов начинаются с 0, поэтому учитываем +1 для корректного процента
+  const currentHuman = Math.min(props.currentStepIndex + 1, props.recipe.steps.length)
+  return Math.round((currentHuman / props.recipe.steps.length) * 100)
 })
 </script>
 
@@ -124,9 +126,9 @@ const completionPercentage = computed(() => {
 .recipe-title {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #f5ebe0;
+  color: var(--ink);
   margin: 0 0 1rem 0;
-  text-shadow: 2px 2px 0 rgba(61, 40, 23, 0.8);
+  text-shadow: none;
   line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 3px;
