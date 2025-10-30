@@ -83,16 +83,22 @@ const initTelegramApp = async () => {
         telegramUserStore.setUser(userData)
         // Инициализируем язык из Telegram
         languageStore.initLanguage(userData.language_code)
+        // Загружаем рецепты из внешнего API
+        await recipesStore.loadFromApi()
       } else {
         telegramUserStore.enableTestMode()
         // Инициализируем язык по умолчанию
         languageStore.initLanguage()
+        // Загружаем рецепты из внешнего API
+        await recipesStore.loadFromApi()
       }
 
     } else {
       telegramUserStore.enableTestMode()
       // Инициализируем язык по умолчанию
       languageStore.initLanguage()
+      // Загружаем рецепты из внешнего API
+      await recipesStore.loadFromApi()
     }
 
   } catch (err) {

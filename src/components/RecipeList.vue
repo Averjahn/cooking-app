@@ -2,9 +2,14 @@
 import { useRecipesStore } from '../stores/recipes'
 import { useI18n } from '../composables/useI18n'
 import type { AnyRecipe } from '../types/recipes'
+import CoffeeTabs from './CoffeeTabs.vue'
+import { ref, computed } from 'vue'
 
 const recipesStore = useRecipesStore()
 const { t, pluralize } = useI18n()
+
+const activeTab = ref<'all' | 'fav'>('all')
+const visibleList = computed(() => activeTab.value === 'all' ? recipesStore.allRecipesUnified : recipesStore.favoriteRecipes)
 
 const selectRecipe = (recipe: AnyRecipe) => {
   recipesStore.setAnyRecipe(recipe)
@@ -55,9 +60,10 @@ const getStepLabel = (recipe: AnyRecipe, count: number): string => {
 
 <template>
   <div class="recipe-list">
+    <CoffeeTabs v-model="activeTab" :all-label="t('navigation.recipes')" :fav-label="'Favorites'" />
     <div class="recipe-grid">
       <div 
-        v-for="recipe in recipesStore.allRecipesUnified" 
+        v-for="recipe in visibleList" 
         :key="recipe.id"
         class="recipe-card"
         @click="selectRecipe(recipe)"
@@ -84,6 +90,9 @@ const getStepLabel = (recipe: AnyRecipe, count: number): string => {
             <span class="recipe-steps">{{ getStepsCount(recipe) }} {{ getStepLabel(recipe, getStepsCount(recipe)) }}</span>
             <span class="recipe-time">{{ getTotalTime(recipe) }}</span>
             <span v-if="'difficulty' in recipe" class="recipe-difficulty">{{ recipe.difficulty }}</span>
+            <button class="fav-btn" @click.stop="recipesStore.toggleFavorite(recipe.id)">
+              {{ recipesStore.isFavorite(recipe.id) ? '★' : '☆' }}
+            </button>
           </div>
         </div>
       </div>
@@ -262,6 +271,16 @@ const getStepLabel = (recipe: AnyRecipe, count: number): string => {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+.fav-btn {
+  margin-left: auto;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
 }
 
 .recipe-steps,

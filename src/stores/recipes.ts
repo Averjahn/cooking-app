@@ -20,6 +20,15 @@ export const useRecipesStore = defineStore('recipes', () => {
   const currentBlockStepIndex = ref(0)
   const completedBlocks = ref<Set<string>>(new Set())
 
+  // Избранное
+  const favorites = ref<Set<number | string>>(new Set())
+  const toggleFavorite = (id: number | string) => {
+    const has = favorites.value.has(id)
+    if (has) favorites.value.delete(id)
+    else favorites.value.add(id)
+  }
+  const isFavorite = (id: number | string) => favorites.value.has(id)
+
   // Геттеры для старых рецептов
   const recipesCount = computed(() => allRecipes.value.length)
   const currentStep = computed(() => {
@@ -75,6 +84,10 @@ export const useRecipesStore = defineStore('recipes', () => {
     ...allRecipes.value,
     ...allMultiTaskRecipes.value
   ])
+
+  const favoriteRecipes = computed(() => {
+    return allRecipesUnified.value.filter(r => favorites.value.has(r.id))
+  })
 
   // Обогащение картинок через Pixabay (если указан ключ)
   const enrichImages = async () => {
@@ -221,6 +234,7 @@ export const useRecipesStore = defineStore('recipes', () => {
     isFirstBlockStep,
     availableBlocks,
     allRecipesUnified,
+    favoriteRecipes,
     getCurrentRecipeType,
     
     // Действия для старых рецептов
@@ -240,6 +254,9 @@ export const useRecipesStore = defineStore('recipes', () => {
     resetMultiTaskRecipe,
     getMultiTaskRecipeById,
     setAnyRecipe,
+    favorites,
+    toggleFavorite,
+    isFavorite,
     enrichImages,
     loadFromApi
   }
