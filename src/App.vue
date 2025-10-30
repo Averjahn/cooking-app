@@ -186,6 +186,12 @@ const initTelegramApp = async () => {
   overflow: hidden;
 }
 
+/* Safe-area переменные (iOS/Telegram) */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 /* ТЕМЫ: CSS-переменные палитры */
 #app.theme-coffee {
   --bg: #f5ebe0;
@@ -311,7 +317,7 @@ const initTelegramApp = async () => {
 
 /* Заголовок приложения - Винтажный стиль */
 .app-header {
-  padding: 40px 20px 20px;
+  padding: calc(20px + var(--safe-top)) 20px 20px;
   text-align: center;
   width: 100%;
   background: #f5ebe0;
@@ -342,6 +348,7 @@ const initTelegramApp = async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 4px;
   margin-bottom: 2rem;
   padding: 0 20px;
 }
@@ -425,14 +432,14 @@ const initTelegramApp = async () => {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: calc(70px + var(--safe-bottom));
   display: flex;
   justify-content: space-around;
   align-items: center;
   background: #f5ebe0;
   border-top: 4px solid #3d2817;
   z-index: 1000;
-  padding: 0;
+  padding: 0 0 var(--safe-bottom) 0;
   box-shadow: 0 -4px 0 rgba(61, 40, 23, 0.6);
   position: relative;
 }
@@ -501,7 +508,7 @@ const initTelegramApp = async () => {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding-bottom: 70px; /* отступ под меню */
+  padding-bottom: calc(70px + var(--safe-bottom)); /* отступ под меню */
   background: #f5ebe0;
 }
 

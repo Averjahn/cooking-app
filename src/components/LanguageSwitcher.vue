@@ -142,7 +142,7 @@ const closeMenu = () => {
 /* Выпадающее меню */
 .language-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 0.5rem + var(--safe-top));
   right: 0;
   background: #f5ebe0;
   border: 3px solid #3d2817;

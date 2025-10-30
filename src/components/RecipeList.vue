@@ -97,11 +97,11 @@ const getStepLabel = (recipe: AnyRecipe, count: number): string => {
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - (70px + var(--safe-bottom)));
   overflow-y: auto;
   overflow-x: hidden;
   background: #f5ebe0;
-  padding-top: 180px;
+  padding-top: calc(120px + var(--safe-top));
   padding-bottom: 4rem;
   box-sizing: border-box;
   font-family: 'Courier New', monospace;

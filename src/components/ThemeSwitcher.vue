@@ -37,6 +37,7 @@ const toggle = () => {
   cursor: pointer;
   box-shadow: 3px 3px 0 var(--shadow);
   font-family: 'Courier New', monospace;
+  margin-top: var(--safe-top);
 }
 .theme-button:hover { filter: brightness(0.95) }
 .icon { font-size: 1.1rem }
