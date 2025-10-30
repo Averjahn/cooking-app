@@ -32,9 +32,10 @@ interface Emits {
 const { t } = useI18n()
 
 // Определяем пропсы с значениями по умолчанию
+// Используем строковые значения, а не computed, так как withDefaults не поддерживает computed
 const props = withDefaults(defineProps<Props>(), {
-  nextButtonText: computed(() => `${t('common.next')} →`).value,
-  previousButtonText: computed(() => `← ${t('common.back')}`).value,
+  nextButtonText: '',
+  previousButtonText: '',
   nextDisabled: false
 })
 
